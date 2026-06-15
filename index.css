@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+  html.text-small {
+    font-size: 14px;
+  }
+  html.text-medium {
+    font-size: 16px;
+  }
+  html.text-large {
+    font-size: 18px;
+  }
+}
+
+/* Estilos customizados para o react-calendar para parecer mais com o tema do app */
+.react-calendar {
+  width: 100% !important;
+  background: white;
+  border: none !important;
+  font-family: inherit !important;
+}
+
+.react-calendar__navigation button {
+  color: #0d9488;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.react-calendar__tile--active {
+  background: #0d9488 !important;
+  border-radius: 12px;
+}
+
+.react-calendar__tile--now {
+  background: #f0fdfa !important;
+  border-radius: 12px;
+  color: #0d9488 !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #f97316 !important;
+}
+
+.react-calendar__tile:hover {
+  background: #f0fdfa !important;
+  border-radius: 12px;
+}

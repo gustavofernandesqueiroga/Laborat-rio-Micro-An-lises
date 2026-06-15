@@ -1,0 +1,8 @@
+{
+  "name": "Coleta Já (Principal)",
+  "description": "Rede laboratorial focada em revolucionar o diagnóstico laboratorial, médico e veterinário na Paraíba e RN.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}

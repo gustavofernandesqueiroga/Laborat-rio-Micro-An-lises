@@ -1,0 +1,230 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Application user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "client", "guepardo", "eal", "partner"] },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "photoUrl": { "type": "string" },
+        "documents": { "type": "array", "items": { "type": "string" } },
+        "rating": { "type": "number" },
+        "hearts": { "type": "number" },
+        "points": { "type": "number" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "GuepardoProfile": {
+      "title": "GuepardoProfile",
+      "description": "Detailed profile for Guepardos",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "diplomaUrl": { "type": "string" },
+        "knowledgeProofUrl": { "type": "string" },
+        "idPhotoUrl": { "type": "string" },
+        "bio": { "type": "string" },
+        "specialties": { "type": "array", "items": { "type": "string" } },
+        "dailyGoal": { "type": "number" },
+        "collectionsToday": { "type": "number" },
+        "totalEarnings": { "type": "number" },
+        "totalCollections": { "type": "number", "description": "Total collections performed by the Guepardo" },
+        "points": { "type": "number", "description": "Gamification points earned" },
+        "level": { "type": "number", "description": "Current level based on experience" },
+        "badges": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["uid"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "Customer feedback for Guepardos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "guepardoUid": { "type": "string" },
+        "customerUid": { "type": "string" },
+        "appointmentId": { "type": "string" },
+        "hearts": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "guepardoUid", "customerUid", "hearts", "createdAt"]
+    },
+    "Material": {
+      "title": "Material",
+      "description": "Logistics material tracking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "quantity": { "type": "number" },
+        "type": { "type": "string", "enum": ["entry", "exit", "checkout"] },
+        "ealUid": { "type": "string" },
+        "location": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "quantity", "type", "ealUid", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System notifications for users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userUid": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userUid", "title", "message", "read", "createdAt"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Individual exam details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pronto", "Em Processamento"] },
+        "date": { "type": "string" },
+        "resultUrl": { "type": "string" }
+      },
+      "required": ["id", "name", "status", "date"]
+    },
+    "PatientResult": {
+      "title": "PatientResult",
+      "description": "Full set of results for a patient protocol",
+      "type": "object",
+      "properties": {
+        "protocol": { "type": "string" },
+        "password": { "type": "string" },
+        "patientName": { "type": "string" },
+        "date": { "type": "string" },
+        "exams": {
+          "type": "array",
+          "items": { "$ref": "Exam" }
+        }
+      },
+      "required": ["protocol", "password", "patientName", "date", "exams"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Scheduled exam appointment",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["HOME", "LAB"] },
+        "serviceId": { "type": "string" },
+        "unitId": { "type": "string" },
+        "address": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "name": { "type": "string" },
+        "age": { "type": "string" },
+        "gender": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "protocolId": { "type": "string" },
+        "userUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "reminderSent": { "type": "boolean", "description": "Whether the 24h reminder has been sent" }
+      },
+      "required": ["type", "serviceId", "date", "time", "name", "phone", "email", "protocolId", "userUid", "createdAt"]
+    },
+    "Commission": {
+      "title": "Commission",
+      "description": "Earnings for Guepardos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "guepardoUid": { "type": "string" },
+        "collectionId": { "type": "string" },
+        "amount": { "type": "number" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["guepardoUid", "amount", "createdAt"]
+    },
+    "CollectionHistory": {
+      "title": "CollectionHistory",
+      "description": "History of collections performed by Guepardos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "guepardoUid": { "type": "string" },
+        "patientName": { "type": "string" },
+        "examName": { "type": "string" },
+        "protocol": { "type": "string" },
+        "notes": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["guepardoUid", "patientName", "examName", "createdAt"]
+    },
+    "WaitlistEntry": {
+      "title": "WaitlistEntry",
+      "description": "User in waitlist for a specific time slot",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["HOME", "LAB"] },
+        "serviceId": { "type": "string" },
+        "unitId": { "type": "string" },
+        "address": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "userUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "serviceId", "date", "time", "name", "phone", "email", "userUid", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/guepardo_profiles/{uid}": {
+      "schema": "GuepardoProfile",
+      "description": "Detailed Guepardo profiles"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "Customer feedback for Guepardos"
+    },
+    "/materials/{materialId}": {
+      "schema": "Material",
+      "description": "Logistics material tracking"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    },
+    "/results/{protocol}": {
+      "schema": "PatientResult",
+      "description": "Exam results accessible by protocol and password"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Scheduled appointments"
+    },
+    "/waitlist/{waitlistId}": {
+      "schema": "WaitlistEntry",
+      "description": "Waitlist for full time slots"
+    },
+    "/commissions/{commissionId}": {
+      "schema": "Commission",
+      "description": "Earnings for Guepardos"
+    },
+    "/collections_history/{historyId}": {
+      "schema": "CollectionHistory",
+      "description": "History of collections performed by Guepardos"
+    }
+  }
+}
